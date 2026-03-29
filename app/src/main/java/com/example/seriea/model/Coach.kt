@@ -1,0 +1,11 @@
+package com.example.seriea.model
+
+data class Coach(
+    val id: Long,
+    val firstName: String,
+    val lastName: String,
+    val name: String,
+    val dateOfBirth: String,
+    val nationality: String,
+    val contract: Contract,
+)
