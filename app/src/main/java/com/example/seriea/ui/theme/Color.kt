@@ -8,7 +8,7 @@ val BluePrimary = Color(0xFF2563EB)
 val BluePrimaryDark = Color(0xFF1D4ED8)
 
 // Backgrounds
-val Background = Color(0xFFF5F6F8)
+val Background = Color(0xFFF9FAFB)
 val Surface = Color(0xFFFFFFFF)
 
 // Text
@@ -41,3 +41,8 @@ val DarkBorder = Color(0xFF1F2933)
 // Icons / States
 val StarActiveDark = Color(0xFFFACC15)
 val IconInactiveDark = Color(0xFF4B5563)
+
+val Blue_500 = Color(0xFFEFF6FF)
+val Gray_600 = Color(0xFF4B5563)
+
+
