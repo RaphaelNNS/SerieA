@@ -1,5 +1,6 @@
 package com.example.seriea.network
 
+import com.example.seriea.model.Request.StandingsResponse
 import com.example.seriea.model.Request.TeamsRequest
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -10,6 +11,11 @@ interface SoccerApiService {
 
     @GET("competitions/{area}/teams")
     suspend fun getTeams(@Path("area") area: String): TeamsRequest
+
+    @GET("competitions/{code}/standings")
+    suspend fun getStandings(
+        @Path("code") code: String
+    ): StandingsResponse
 
 
 }
