@@ -1,4 +1,4 @@
-package com.example.seriea.ui.theme.screens.home
+package com.example.seriea.ui.screens.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -20,14 +19,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.seriea.data.model.TableEntry
 import com.example.seriea.ui.theme.SerieATheme
 import com.example.seriea.ui.theme.TextPrimary
-import com.example.seriea.ui.theme.components.BottomBar
-import com.example.seriea.ui.theme.components.GameCard
-import com.example.seriea.ui.theme.components.TopBar
-import com.example.seriea.ui.theme.components.Chips
-import com.example.seriea.ui.theme.components.tables.TableCell
-import com.example.seriea.ui.theme.components.tables.tableHeader
+import com.example.seriea.ui.components.BottomBar
+import com.example.seriea.ui.components.GameCard
+import com.example.seriea.ui.components.TopBar
+import com.example.seriea.ui.components.Chips
+import com.example.seriea.ui.components.tables.TableCell
+import com.example.seriea.ui.components.tables.TableCellSkeleton
+import com.example.seriea.ui.components.tables.tableHeader
 
 
 @Preview(
@@ -44,7 +46,9 @@ fun HomeScreenPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    viewModel: homeViewModel = viewModel()
+) {
     Scaffold(
         Modifier
             .fillMaxSize()
@@ -63,7 +67,6 @@ fun HomeScreen() {
             Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .fillMaxWidth()
                 .padding(padding)
                 .padding(start = 8.dp, end = 8.dp)
         ){
@@ -82,7 +85,17 @@ fun HomeScreen() {
                 Chips("Brasileirão Série A", false)
             }
             Spacer(Modifier.height(8.dp))
-            leagueTable()
+            tableHeader("Classificação")
+            if (!viewModel.isLoading){
+                for (entry in viewModel.standingsResponse){
+                    TableCell(entry)
+                }
+            }else{
+                repeat(10){
+                    TableCellSkeleton()
+                }
+            }
+
         }
     }
 }
@@ -92,14 +105,6 @@ fun NextMatches() {
     for (x in 1..2){
         GameCard()
         Spacer(Modifier.height(8.dp))
-    }
-}
-
-@Composable
-fun leagueTable(){
-    tableHeader("Classificação")
-    for (x in 1..8){
-        TableCell()
     }
 }
 

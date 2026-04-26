@@ -13,9 +13,7 @@ interface SoccerApiService {
     suspend fun getTeams(@Path("area") area: String): TeamsRequest
 
     @GET("competitions/2013/standings")
-    suspend fun getBRAStandings(
-        @Path("code") code: String
-    ): StandingsResponse
+    suspend fun getBRAStandings(): StandingsResponse
 
 
 
