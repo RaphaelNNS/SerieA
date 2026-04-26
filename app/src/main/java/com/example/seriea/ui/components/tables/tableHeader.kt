@@ -1,4 +1,4 @@
-package com.example.seriea.ui.theme.components.tables
+package com.example.seriea.ui.components.tables
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize

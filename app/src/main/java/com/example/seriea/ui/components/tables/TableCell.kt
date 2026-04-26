@@ -1,4 +1,4 @@
-package com.example.seriea.ui.theme.components.tables
+package com.example.seriea.ui.components.tables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,12 +23,25 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.example.seriea.data.model.Standing
+import com.example.seriea.data.model.TableEntry
 import com.example.seriea.ui.theme.Surface
 import com.example.seriea.ui.theme.TextPrimary
 import com.example.seriea.ui.theme.TextSecondary
 
 @Composable
-fun TableCell() {
+fun TableCell(tableEntry: TableEntry) {
+
+    var team = tableEntry.team
+    var lost = tableEntry.lost
+    var draw = tableEntry.draw
+    var won = tableEntry.won
+    var position = tableEntry.position.toString()
+    var image = tableEntry.team.crest
+    var points = tableEntry.points.toString()
+
+
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -46,11 +59,11 @@ fun TableCell() {
         ) {
             // Lado esquerdo
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text("1", style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
+                Text(position, style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
                 Spacer(Modifier.width(16.dp))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data("https://crests.football-data.org/764.svg")
+                        .data(image)
                         .decoderFactory(SvgDecoder.Factory())
                         .build(),
                     contentDescription = "Escudo do time",
@@ -58,18 +71,18 @@ fun TableCell() {
                 )
                 Spacer(Modifier.width(8.dp))
                 Column {
-                    Text("Flamengo", style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
+                    Text(team.name, style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
                     Row {
-                        Text("14V ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("3E ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("2D ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${won}W ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${draw}D ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${lost}L ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
                     }
                 }
             }
 
 
             Text(
-                text = "29 pts",
+                text = points,
                 style = MaterialTheme.typography.bodyMedium,
                 color = TextPrimary
             )
