@@ -1,4 +1,4 @@
-package com.example.seriea.model
+package com.example.seriea.data.model
 
 data class Squad(
     val id: Long,

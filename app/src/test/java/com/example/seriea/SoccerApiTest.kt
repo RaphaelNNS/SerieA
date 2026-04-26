@@ -1,7 +1,7 @@
 package com.example.seriea
 
-import com.example.seriea.network.RetrofitClient
-import com.example.seriea.network.SoccerApiService
+import com.example.seriea.data.network.RetrofitClient
+import com.example.seriea.data.network.SoccerApiService
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test

@@ -1,4 +1,4 @@
-package com.example.seriea.network
+package com.example.seriea.data.network
 
 import com.example.seriea.BuildConfig
 import okhttp3.OkHttpClient
