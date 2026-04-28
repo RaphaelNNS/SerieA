@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.seriea.data.model.Match
 import com.example.seriea.data.model.Standing
 import com.example.seriea.data.model.TableEntry
 import com.example.seriea.data.repository.SoccerRepository
@@ -18,6 +19,8 @@ class homeViewModel: ViewModel() {
 
     var standingsResponse by mutableStateOf<List<TableEntry>>(emptyList())
         private set
+    var matchesList by mutableStateOf<List<Match>>(emptyList())
+        private set
     var isLoading by mutableStateOf<Boolean>(true)
         private set
     var error by mutableStateOf<String?>(null)
@@ -25,26 +28,47 @@ class homeViewModel: ViewModel() {
 
 
     init {
-        fetchData()
+        isLoading = true
+        error = null
+        fetchStanding()
+        fetchMatches()
+        isLoading = false
+
     }
 
-    fun fetchData(){
+    fun fetchStanding(){
         viewModelScope.launch {
-            isLoading = true
-            error = null
+
             try {
                 standingsResponse = soccerRepository.getBRACompetitionEntries()
+
             } catch (e: IOException) {
                 error = "Sem conexão"
             } catch (e: HttpException) {
                 error = "Erro na API: ${e.code()}"
             } catch (e: Exception) {
                 error = "Erro desconhecido"
-            } finally {
-                isLoading = false
             }
 
         }
     }
+
+    fun fetchMatches(){
+        viewModelScope.launch {
+
+            try {
+                matchesList = soccerRepository.getBRAMatches()
+
+            } catch (e: IOException) {
+                error = "Sem conexão"
+            } catch (e: HttpException) {
+                error = "Erro na API: ${e.code()}"
+            } catch (e: Exception) {
+                error = "Erro desconhecido"
+            }
+
+        }
+    }
+
 
 }

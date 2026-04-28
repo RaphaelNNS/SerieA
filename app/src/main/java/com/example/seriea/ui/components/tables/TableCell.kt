@@ -73,9 +73,9 @@ fun TableCell(tableEntry: TableEntry) {
                 Column {
                     Text(team.name, style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
                     Row {
-                        Text("${won}W ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("${draw}D ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("${lost}L ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${won}V ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${draw}E ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${lost}D ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
                     }
                 }
             }

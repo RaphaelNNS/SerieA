@@ -1,26 +1,43 @@
 package com.example.seriea.data.repository
 
-import android.icu.util.TimeUnit
+import com.example.seriea.data.model.Match
+import com.example.seriea.data.model.Request.MatchesResponse
 import com.example.seriea.data.model.Request.StandingsResponse
-import com.example.seriea.data.model.Standing
 import com.example.seriea.data.model.TableEntry
 import com.example.seriea.data.network.RetrofitClient
-import java.util.Timer
 
 class SoccerRepository(): ISoccerRepository{
 
     private val api = RetrofitClient.instance
     private var cachedStandingResponse: StandingsResponse? = null
-    private val timeLimit = 5 * 60 * 1000L
-    private var lastFetchTime = 0L
+    private var cachedMatchesResponse: MatchesResponse? = null
+    private val StandingTimeLimit = 5 * 60 * 1000L
+    private val MatchesTimeLimit = 1 * 60 * 1000L
+    private var MatchesLastFetchTime = 0L
+    private var StandingLastFetchTime = 0L
+
+
 
     private suspend fun getStandingResponse(): StandingsResponse {
-        var timeDiference = System.currentTimeMillis() - lastFetchTime
-        if(cachedStandingResponse == null || timeDiference > timeLimit){
+        var timeDiference = System.currentTimeMillis() - StandingLastFetchTime
+        if(cachedStandingResponse == null || timeDiference > StandingTimeLimit){
             cachedStandingResponse = api.getBRAStandings()
-            lastFetchTime = System.currentTimeMillis()
+            StandingLastFetchTime = System.currentTimeMillis()
         }
         return cachedStandingResponse!!
+    }
+
+    private suspend fun getMatchesResponse(): MatchesResponse {
+        var timeDiference = System.currentTimeMillis() - MatchesLastFetchTime
+        if(cachedMatchesResponse == null || timeDiference > MatchesTimeLimit){
+            cachedMatchesResponse = api.getBRAMatches()
+            MatchesLastFetchTime = System.currentTimeMillis()
+        }
+        return cachedMatchesResponse!!
+    }
+
+    override suspend fun getBRAMatches(): List<Match> {
+        return getMatchesResponse().matches
     }
 
     override suspend fun getBRACompetitionEntries(): List<TableEntry> {
@@ -28,6 +45,7 @@ class SoccerRepository(): ISoccerRepository{
             it.type == "TOTAL"
         }.table
     }
+
 
     override suspend fun getCurrentBRASeason(competitionId: String): Map<String, String>{
         var comp = getStandingResponse().season

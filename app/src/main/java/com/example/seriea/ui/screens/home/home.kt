@@ -30,6 +30,9 @@ import com.example.seriea.ui.components.Chips
 import com.example.seriea.ui.components.tables.TableCell
 import com.example.seriea.ui.components.tables.TableCellSkeleton
 import com.example.seriea.ui.components.tables.tableHeader
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 
 @Preview(
@@ -73,17 +76,20 @@ fun HomeScreen(
             Spacer(Modifier.height(8.dp))
             Spacer(Modifier.height(8.dp))
             Text("Jogos de Hoje" , style = MaterialTheme.typography.headlineSmall, color = TextPrimary)
-            Spacer(Modifier.height(8.dp))
-            GameCard()
-            Spacer(Modifier.height(16.dp))
             Text("Proximos Jogos", style = MaterialTheme.typography.headlineSmall, color = TextPrimary)
+            Spacer(Modifier.height(8.dp))
+            val lastMatches = viewModel.matchesList.filter { it.status == "TIMED" || it.status == "SCHEDULED" }
+                .sortedBy { it.utcDate }
+                .take(3)
+            lastMatches.forEach {
+                GameCard(it)
+                Spacer(Modifier.height(8.dp))
+            }
+            Spacer(Modifier.height(16.dp))
             Spacer(Modifier.height(8.dp))
             NextMatches()
             Spacer(Modifier.height(8.dp))
-            Row (horizontalArrangement = Arrangement.spacedBy(4.dp)){
-                Chips("Todos", true)
-                Chips("Brasileirão Série A", false)
-            }
+
             Spacer(Modifier.height(8.dp))
             tableHeader("Classificação")
             if (!viewModel.isLoading){
@@ -96,18 +102,17 @@ fun HomeScreen(
                 }
             }
 
+            Spacer(Modifier.height(8.dp))
+
+
         }
     }
 }
 
 @Composable
 fun NextMatches() {
-    for (x in 1..2){
-        GameCard()
-        Spacer(Modifier.height(8.dp))
-    }
-}
 
+}
 
 
 
