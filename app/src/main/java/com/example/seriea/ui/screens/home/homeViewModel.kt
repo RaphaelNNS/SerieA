@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
-class homeViewModel: ViewModel() {
+class homeViewModel : ViewModel() {
 
     private val soccerRepository = SoccerRepository()
 
@@ -21,54 +21,53 @@ class homeViewModel: ViewModel() {
         private set
     var matchesList by mutableStateOf<List<Match>>(emptyList())
         private set
-    var isLoading by mutableStateOf<Boolean>(true)
+    var isLoading by mutableStateOf(true)
         private set
     var error by mutableStateOf<String?>(null)
         private set
 
+    private var loadingCount = 0
+        set(value) {
+            field = value
+            isLoading = value > 0
+        }
 
     init {
-        isLoading = true
-        error = null
         fetchStanding()
         fetchMatches()
-        isLoading = false
-
     }
 
-    fun fetchStanding(){
+    fun fetchStanding() {
         viewModelScope.launch {
-
+            loadingCount++
             try {
                 standingsResponse = soccerRepository.getBRACompetitionEntries()
-
             } catch (e: IOException) {
                 error = "Sem conexão"
             } catch (e: HttpException) {
                 error = "Erro na API: ${e.code()}"
             } catch (e: Exception) {
                 error = "Erro desconhecido"
+            } finally {
+                loadingCount--
             }
-
         }
     }
 
-    fun fetchMatches(){
+    fun fetchMatches() {
         viewModelScope.launch {
-
+            loadingCount++
             try {
                 matchesList = soccerRepository.getBRAMatches()
-
             } catch (e: IOException) {
                 error = "Sem conexão"
             } catch (e: HttpException) {
                 error = "Erro na API: ${e.code()}"
             } catch (e: Exception) {
                 error = "Erro desconhecido"
+            } finally {
+                loadingCount--
             }
-
         }
     }
-
-
 }

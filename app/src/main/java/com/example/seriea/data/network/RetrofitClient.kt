@@ -1,5 +1,6 @@
 package com.example.seriea.data.network
 
+import android.util.Log
 import com.example.seriea.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -25,8 +26,8 @@ object RetrofitClient {
                 .build()
         }
 
-        val instance: SoccerApiService by lazy {
 
+        val instance: SoccerApiService by lazy {
             Retrofit.Builder()
                 .baseUrl(BASE_URL)
             .client(okHttpClient)

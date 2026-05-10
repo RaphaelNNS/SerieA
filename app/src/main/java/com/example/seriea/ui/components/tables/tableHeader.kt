@@ -23,12 +23,12 @@ fun tableHeader(title: String) {
         fillMaxSize(),
         elevation = CardDefaults.cardElevation(2.dp),
         colors = CardDefaults.cardColors(
-            containerColor = Background
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         shape = tableHeaderShape
     ){
         Row(modifier = Modifier.padding(12.dp)) {
-            Text(title, style = MaterialTheme.typography.titleLarge, color = TextPrimary)
+            Text(title, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onSurface)
         }
     }
 }
