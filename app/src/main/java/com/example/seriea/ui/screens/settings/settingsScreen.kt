@@ -1,4 +1,4 @@
-package com.example.seriea.ui.screens.home
+package com.example.seriea.ui.screens.settings
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -29,6 +29,7 @@ import com.example.seriea.ui.components.GameCardSkeleton
 import com.example.seriea.ui.components.tables.TableCell
 import com.example.seriea.ui.components.tables.TableCellSkeleton
 import com.example.seriea.ui.components.tables.tableHeader
+import com.example.seriea.ui.screens.home.homeViewModel
 import com.example.seriea.ui.theme.Surface
 
 
@@ -40,13 +41,13 @@ import com.example.seriea.ui.theme.Surface
 @Composable
 fun HomeScreenPreview() {
     SerieATheme {
-        HomeScreen()
+        SettingsScreen()
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
+fun SettingsScreen(
     viewModel: homeViewModel = viewModel()
 ) {
     Scaffold(
@@ -69,58 +70,11 @@ fun HomeScreen(
                 .padding(padding)
                 .padding(start = 8.dp, end = 8.dp)
         ){
-            Spacer(Modifier.height(8.dp))
-            Spacer(Modifier.height(8.dp))
-            Text("Proximos Jogos", style = MaterialTheme.typography.headlineSmall, color = (MaterialTheme.colorScheme.onBackground))
-            Spacer(Modifier.height(8.dp))
-            val lastMatches = viewModel.matchesList.filter { it.status == "TIMED" || it.status == "SCHEDULED" }
-                .sortedBy { it.utcDate }
-                .take(3)
-            if (!viewModel.isLoading){
-                lastMatches.forEach {
-                    GameCard(it)
-                    Spacer(Modifier.height(8.dp))
-                }
-            }else{
-                repeat(2){
-                    GameCardSkeleton()
-                    Spacer(Modifier.height(8.dp))
-                }
-            }
-
-            Spacer(Modifier.height(8.dp))
-            NextMatches()
-            Spacer(Modifier.height(8.dp))
-            Spacer(Modifier.height(8.dp))
-            tableHeader("Classificação")
-            if (!viewModel.isLoading){
-                for (entry in viewModel.standingsResponse){
-                    TableCell(entry)
-                }
-            }else{
-                repeat(20){
-                    TableCellSkeleton()
-                }
-            }
-            Box(
-                Modifier.background(
-                    color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(
-                        bottomEnd = 16.dp,
-                        bottomStart = 16.dp
-                    )
-                ).height(24.dp).fillMaxWidth()
-            ) {
-            }
-            Spacer(Modifier.height(8.dp))
+            Text("SettingsScreen")
         }
     }
 }
 
-@Composable
-fun NextMatches() {
-
-}
 
 
 
