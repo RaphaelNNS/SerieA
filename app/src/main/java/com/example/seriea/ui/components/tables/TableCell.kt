@@ -46,7 +46,7 @@ fun TableCell(tableEntry: TableEntry) {
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),
-        colors = CardDefaults.cardColors(containerColor = Surface),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         shape = RectangleShape,
         elevation = CardDefaults.cardElevation(2.dp)
     ) {
@@ -57,9 +57,8 @@ fun TableCell(tableEntry: TableEntry) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            // Lado esquerdo
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(position, style = MaterialTheme.typography.bodyMedium, color = TextSecondary)
+                Text(position, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
                 Spacer(Modifier.width(16.dp))
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
@@ -71,11 +70,11 @@ fun TableCell(tableEntry: TableEntry) {
                 )
                 Spacer(Modifier.width(8.dp))
                 Column {
-                    Text(team.name, style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
+                    Text(team.name, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface)
                     Row {
-                        Text("${won}V ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("${draw}E ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                        Text("${lost}D ", style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                        Text("${won}V ", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+                        Text("${draw}E ", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+                        Text("${lost}D ", style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
                     }
                 }
             }
@@ -84,7 +83,7 @@ fun TableCell(tableEntry: TableEntry) {
             Text(
                 text = points,
                 style = MaterialTheme.typography.bodyMedium,
-                color = TextPrimary
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
     }

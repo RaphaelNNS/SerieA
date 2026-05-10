@@ -10,7 +10,9 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.seriea.data.model.Match
 import com.example.seriea.ui.theme.Surface
@@ -27,7 +29,7 @@ fun GameCard(match: Match){
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(
-            containerColor = Surface
+            containerColor = MaterialTheme.colorScheme.surface
         ),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 2.dp
@@ -46,16 +48,16 @@ fun GameCard(match: Match){
                     .fillMaxWidth()
                     .padding(bottom = 8.dp)
             ) {
-                Text(match.competition.name, style = MaterialTheme.typography.labelSmall, color = TextSecondary)
-                Text(utcToBrasilia(match.utcDate), style = MaterialTheme.typography.labelSmall, color = TextSecondary)
+                Text(match.competition.name, style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
+                Text(utcToBrasilia(match.utcDate), style = MaterialTheme.typography.labelSmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f))
             }
             Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
+                
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(match.homeTeam.name, style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
-                Text("VS", style = MaterialTheme.typography.bodySmall, color = TextTertiary)
-                Text(match.awayTeam.name, style = MaterialTheme.typography.bodyLarge, color = TextPrimary)
+                Text(match.homeTeam.name, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(6f))
+                Text("VS", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f), modifier = Modifier.weight(1f))
+                Text(match.awayTeam.name, style = MaterialTheme.typography.bodyLarge, color = MaterialTheme.colorScheme.onSurface, modifier = Modifier.weight(6f), textAlign = TextAlign.End)
             }
         }
     }

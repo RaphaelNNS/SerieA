@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,7 +24,7 @@ fun TopBar() {
     Column (modifier = Modifier.fillMaxWidth()){
         Box(
             modifier = Modifier
-                .background(Surface)
+                .background(MaterialTheme.colorScheme.surface)
                 .fillMaxWidth()
                 .height(84.dp)
         ){
@@ -31,9 +32,9 @@ fun TopBar() {
             fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center) {
-                Text(text = "⚽ Serie A", fontSize = 24.sp)
+                Text(text = "⚽ Serie A", fontSize = 24.sp, color = MaterialTheme.colorScheme.onSurface)
             }
         }
-        HorizontalDivider(thickness = 2.dp, color = Border)
+        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.outlineVariant)
     }
 }
