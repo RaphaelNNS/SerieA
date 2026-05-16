@@ -14,11 +14,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DarkMode
 import androidx.compose.material.icons.filled.Language
 import androidx.compose.material.icons.filled.LightMode
+import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.NotificationsOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import com.example.seriea.ui.components.Cell
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,15 +35,15 @@ import com.example.seriea.ui.theme.SerieATheme
 import com.example.seriea.ui.theme.ThemeViewModel
 
 
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SettingsScreen(
     themeViewModel: ThemeViewModel = viewModel()
 ) {
-
     val systemIsDark = isSystemInDarkTheme()
+    LaunchedEffect(Unit) {
+        themeViewModel.init(systemIsDark)
+    }
 
 
     Column(
@@ -80,20 +83,27 @@ fun SettingsScreen(
             Cell(
                 CellPosition.TOP,
                 Modifier,
-                "Modo escuro",
-                "",
-                onClickCard = { themeViewModel.toggleTheme(systemIsDark) },
-                imageVector = if (isSystemInDarkTheme()) Icons.Default.DarkMode else Icons.Default.LightMode
-
-            ) 
+                "Ativar notificações",
+                "Receba alertas sobre jogos e gols (em breve)",
+                imageVector = Icons.Outlined.NotificationsOff,
+                cellStyle = CellStyle.SWITCH
+                )
+            Cell(
+                CellPosition.MIDDLE,
+                Modifier,
+                "Notificações de gol",
+                "Apenas gols do seu time (em breve)",
+                imageVector = Icons.Outlined.Notifications,
+                cellStyle = CellStyle.SWITCH
+                )
             Cell(
                 CellPosition.BOTTOM,
                 Modifier,
-                "Idioma",
-                description = "em breve",
-                onClickCard = {},
-                imageVector = Icons.Default.Language
-            )
+                "Início de partida",
+                "Quando o jogo começar (em breve)",
+                imageVector = Icons.Outlined.Notifications,
+                cellStyle = CellStyle.SWITCH
+                )
         }
         Spacer(Modifier.height(16.dp))
 
@@ -111,8 +121,10 @@ fun SettingsScreen(
                 "Modo escuro",
                 "",
                 onClickCard = { themeViewModel.toggleTheme(systemIsDark) },
-                imageVector = if (isSystemInDarkTheme()) Icons.Default.DarkMode else Icons.Default.LightMode
-            )
+                imageVector = if (isSystemInDarkTheme()) Icons.Default.DarkMode else Icons.Default.LightMode,
+                cellStyle = CellStyle.SWITCH,
+                isChecked = themeViewModel.isDarkTheme
+                )
             Cell(
                 CellPosition.BOTTOM,
                 Modifier,

@@ -1,6 +1,5 @@
 package com.example.seriea.ui.theme
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -13,5 +12,11 @@ class ThemeViewModel(
 
     fun toggleTheme(systemIsDark: Boolean) {
         isDarkTheme = !(isDarkTheme ?: systemIsDark)
+    }
+
+    fun init(systemIsDark: Boolean) {
+        if (isDarkTheme == null) {
+            isDarkTheme = systemIsDark
+        }
     }
 }
