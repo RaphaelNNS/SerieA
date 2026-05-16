@@ -13,21 +13,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.seriea.ui.theme.SerieATheme
 import com.example.seriea.ui.components.GameCard
-import com.example.seriea.ui.components.TopBar
 import com.example.seriea.ui.components.GameCardSkeleton
 import com.example.seriea.ui.components.tables.TableCell
 import com.example.seriea.ui.components.tables.TableCellSkeleton
 import com.example.seriea.ui.components.tables.tableHeader
+import com.example.seriea.ui.theme.SerieATheme
 
 
 @Preview(
@@ -47,24 +44,12 @@ fun HomeScreenPreview() {
 fun HomeScreen(
     viewModel: homeViewModel = viewModel()
 ) {
-    Scaffold(
-        Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background),
-        bottomBar = {
-        },
-        topBar = {
-            TopBar()
-        },
-        contentWindowInsets = ScaffoldDefaults.contentWindowInsets
-
-    ) { padding ->
+    Box(Modifier.background(MaterialTheme.colorScheme.background)) {
         Spacer(Modifier.height(8.dp))
         Column (
             Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(padding)
                 .padding(start = 8.dp, end = 8.dp)
         ){
             Spacer(Modifier.height(8.dp))
@@ -112,6 +97,8 @@ fun HomeScreen(
             Spacer(Modifier.height(8.dp))
         }
     }
+
+
 }
 
 

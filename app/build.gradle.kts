@@ -83,4 +83,11 @@ dependencies {
     //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    //Icons
+    implementation ("androidx.compose.material:material-icons-extended:1.7.8")
+
+
 }
